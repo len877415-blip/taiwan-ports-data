@@ -1,6 +1,5 @@
 import pandas as pd
 import streamlit as st
-import matplotlib.pyplot as plt
 
 # =======================
 # Đọc & chuẩn hóa dữ liệu
@@ -21,6 +20,8 @@ def load_data():
             "風速\nm/s": "WindSpeed_mps"
         })
         df["Port"] = port
+        # Tạo cột datetime kết hợp ngày + giờ
+        df["Datetime"] = pd.to_datetime(df["Date"]) + pd.to_timedelta(df["Hour"].astype(int), unit="h")
         all_data.append(df)
     
     return pd.concat(all_data, ignore_index=True)
@@ -49,20 +50,4 @@ filtered_df = df[df["Port"].isin(selected_ports)]
 
 # Hiển thị bảng dữ liệu
 st.subheader("Bảng dữ liệu")
-st.dataframe(filtered_df[["Port", "Date", "Hour", "WindSpeed_mps", "WaveHeight_cm", "CurrentSpeed_cmps"]])
-
-# Vẽ biểu đồ
-for metric in selected_metrics:
-    col_name = metrics[metric]
-    plt.figure(figsize=(10, 5))
-    for port in selected_ports:
-        port_data = filtered_df[filtered_df["Port"] == port]
-        # Dùng (Date + Hour) làm trục X
-        x_axis = port_data["Date"].astype(str) + " " + port_data["Hour"].astype(str)
-        plt.plot(x_axis, port_data[col_name], marker="o", label=port)
-    plt.title(metric)
-    plt.xlabel("Ngày - Giờ")
-    plt.ylabel(metric)
-    plt.xticks(rotation=45)
-    plt.legend()
-    st.pyplot(plt)
+st.dataframe(filtered_df[["Port", "Date", "Hour", "WindSpeed_mps", "WaveHeight_cm", "CurrentSpeed_cmps"]])_]()]()_
