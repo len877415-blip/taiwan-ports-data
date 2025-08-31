@@ -50,4 +50,4 @@ filtered_df = df[df["Port"].isin(selected_ports)]
 
 # Hiển thị bảng dữ liệu
 st.subheader("Bảng dữ liệu")
-st.dataframe(filtered_df[["Port", "Date", "Hour", "WindSpeed_mps", "WaveHeight_cm", "CurrentSpeed_cmps"]])_]()]()_
+st.dataframe(filtered_df[["Port", "Date", "Hour", "WindSpeed_mp_]()]()_
